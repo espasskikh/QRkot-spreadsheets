@@ -130,14 +130,22 @@ class YandexDiskClient:
                 'Не удалось создать папку на Яндекс Диске'
             ) from error
 
+    async def get_basic_info(self) -> dict:
+        """Получить общую информацию о Диске."""
+        try:
+            response = await self._client.get(
+                BASE_URL,
+                headers=self.headers
+            )
+            response.raise_for_status()
+        except httpx.HTTPError as error:
+            raise YandexDiskError(
+                'Не удалось выполнить запрос к API Яндекс Диска'
+            ) from error
+        return self._parse_json(response)
+
 
 async def get_yandex_client():
     """Dependency для получения клиента Яндекс Диска."""
-    if not settings.yandex_disk_token:
-        raise YandexDiskError(
-            detail='Яндекс Диск не настроен. Пожалуйста, '
-                   'добавьте QRKOT_YANDEX_DISK_TOKEN в .env-файл'
-        )
-
     async with YandexDiskClient(settings.yandex_disk_token) as client:
         yield client
