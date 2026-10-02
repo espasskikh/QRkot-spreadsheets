@@ -50,3 +50,6 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 uvicorn==0.42.0
 xlsxwriter==3.2.9
+isort==8.0.1
+flake8==7.4.1
+flake8-print==5.0.0
