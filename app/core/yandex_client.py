@@ -2,7 +2,7 @@ import json
 from typing import Optional
 
 import httpx
-from fastapi import HTTPException, status
+from fastapi import status
 
 from app.common.exceptions import YandexDiskError
 from app.core.config import settings
