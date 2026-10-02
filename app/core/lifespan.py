@@ -8,7 +8,8 @@ from app.core.yandex_client import YandexDiskClient
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def check_yandex_disk_access(app: FastAPI):
+    """Проверка доступа к Яндекс Диску при запуске приложения."""
     async with YandexDiskClient(settings.yandex_disk_token) as client:
         try:
             await client.get_basic_info()
